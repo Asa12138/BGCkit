@@ -1,0 +1,26 @@
+Package: BGCkit
+Title: A kit for biosynthetic gene cluster (BGC) analysis
+Version: 0.0.0.9000
+Authors@R: 
+    person("Chen", "Peng", email ="pengchen2001@zju.edu.cn", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9449-7606"))
+Description: 
+    Study the evolutionary relationship between microbial genomes, especially the evolutionary patterns of specific functional genes.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    magrittr,
+    pcutils (>= 0.2.5),
+    utils
+Suggests: 
+    knitr,
+    rmarkdown,
+    jsonlite,
+    rvest
+Depends: 
+    R (>= 4.2.0)
+VignetteBuilder: knitr
+BugReports: https://github.com/Asa12138/BGCkit/issues
+URL: https://github.com/Asa12138/BGCkit
+LazyData: true
