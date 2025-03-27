@@ -12,12 +12,25 @@ RoxygenNote: 7.2.3
 Imports: 
     magrittr,
     pcutils (>= 0.2.5),
-    utils
+    utils,
+    dplyr,
+    readr,
+    tibble,
+    ggplot2,
+    clipr
 Suggests: 
     knitr,
     rmarkdown,
     jsonlite,
-    rvest
+    rvest,
+    pctax,
+    MetaNet,
+    igraph,
+    gggenes,
+    ggrepel,
+    stringr,
+    RSQLite,
+    DBI
 Depends: 
     R (>= 4.2.0)
 VignetteBuilder: knitr

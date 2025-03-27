@@ -1,5 +1,7 @@
 ---
-output: github_document
+output: 
+    github_document:
+        html_preview: false
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -18,14 +20,13 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of BGCkit is to ...
-
 ## Installation
 
 You can install the development version of BGCkit like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# install.packages("devtools")
+devtools::install_github("Asa12138/BGCkit")
 ```
 
 ## Example
@@ -37,18 +38,72 @@ library(BGCkit)
 ## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## MiBIG database
 
-```{r cars}
-summary(cars)
+
+```{r eval=FALSE}
+# get_mibig_db(file = "../temp/mibig_json_4.0.tar.gz")
+load_mibig_db() -> mibig_db
+mibig_db2df(mibig_db) -> mibig_df
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+## Antismash
 
-You can also embed plots, for example:
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r}
+how_to_do_bgc("antismash")
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+```{r}
+read_antismash_json("../temp/AAB-S01R1_127/AAB-S01R1_127.json") -> AAB_S01R1_127
+AAB_S01R1_127
+
+get_BGCs_from_BGC_json(AAB_S01R1_127)
+plot_BGC(AAB_S01R1_127, region_id = "c00519_AAB-S01..")
+```
+
+
+
+## Big-scape
+
+```{r}
+how_to_do_bgc("big-scape")
+```
+
+```{r}
+read_big_scape_dir("../temp/network_files/2024-05-27_14-21-19_hybrids_glocal/") -> big_scape_res
+big_scape_res
+
+plot_BGC_class(big_scape_res)
+
+trans_net(big_scape_res, class = "RiPPs") -> NRPS_net
+
+plot(NRPS_net,
+  group_legend_title = "Product Prediction", main = "RiPPs GCF network",
+  size_legend = T, size_legend_title = "Degree"
+)
+```
+
+
+## Big-slice
+
+```{r}
+# read_big_slice_dir("~/Documents/R/Greenland2/data/big_slice_out/")->big_slice_res2
+read_big_slice_dir("../temp/big_slice_test_out/") -> big_slice_res
+
+big_slice_res
+
+# open_big_slice_website(big_slice_res,port=123)
+
+get_big_slice_db(big_slice_res, "bgc")
+
+get_report_df(big_slice_res, "Greenland_MAGs")
+```
+
+## BGC_atlas
+
+```
+cd /data/home/jianglab/share/pc_DB/BGC_atlas
+
+```
+
