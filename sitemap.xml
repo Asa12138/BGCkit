@@ -4,8 +4,27 @@
 <url><loc>/index.html</loc></url>
 <url><loc>/news/index.html</loc></url>
 <url><loc>/reference/BGCkit-package.html</loc></url>
+<url><loc>/reference/get_BGCs_from_BGC_json.html</loc></url>
+<url><loc>/reference/get_big_slice_db.html</loc></url>
+<url><loc>/reference/get_mibig_db.html</loc></url>
+<url><loc>/reference/get_mibig_versions.html</loc></url>
+<url><loc>/reference/get_report_df.html</loc></url>
+<url><loc>/reference/how_to_do_bgc.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/load_mibig_db.html</loc></url>
 <url><loc>/reference/mibig_db.html</loc></url>
+<url><loc>/reference/mibig_db2df.html</loc></url>
+<url><loc>/reference/open_big_slice_website.html</loc></url>
 <url><loc>/reference/pipe.html</loc></url>
+<url><loc>/reference/plot_BGC.html</loc></url>
+<url><loc>/reference/plot_BGC_class.html</loc></url>
+<url><loc>/reference/print.antismash.html</loc></url>
+<url><loc>/reference/print.big_scape.html</loc></url>
+<url><loc>/reference/print.big_slice.html</loc></url>
+<url><loc>/reference/print.mibig_db.html</loc></url>
+<url><loc>/reference/read_antismash_json.html</loc></url>
+<url><loc>/reference/read_big_scape_dir.html</loc></url>
+<url><loc>/reference/read_big_slice_dir.html</loc></url>
+<url><loc>/reference/trans_net.html</loc></url>
 </urlset>
 
