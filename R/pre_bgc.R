@@ -37,16 +37,22 @@ get_region_df <- function(single_contig) {
   single_contig_region_res <- list()
   for (pos in region_site) {
     single_region <- single_contig[["features"]][[pos]]
+    tmp_se <- parse_location(single_region$location)
     single_contig_region_res[[as.character(pos)]] <- data.frame(
       id = single_contig$id,
       contig = single_contig$description,
       region_number = single_region$qualifiers$region_number[[1]],
       on_contig_edge = single_region$qualifiers$contig_edge[[1]],
-      length = diff(parse_location(single_region$location)[1:2]) %>% unname(),
+      start = tmp_se[1] + 1,
+      end = tmp_se[2],
+      direct = tmp_se[3],
+      length = diff(tmp_se[1:2]) %>% unname(),
       product = single_contig[["features"]][[pos]]$qualifiers$product %>% paste0(collapse = "; ")
     )
   }
-  do.call(rbind, single_contig_region_res)
+  region_df <- do.call(rbind, single_contig_region_res)
+  region_df$BGC <- paste0(region_df$id, ".region", sprintf("%03d", as.numeric(region_df$region_number)))
+  region_df
 }
 
 #' Get information from antismash output json file
@@ -75,6 +81,7 @@ get_BGCs_from_BGC_json <- function(BGC_json) {
 }
 
 get_features_df <- function(single_contig) {
+  id.x <- start.x <- end.x <- id.y <- start.y <- end.y <- id <- start <- end <- BGC <- NULL
   features_df <- data.frame(
     id = rep(single_contig$id, length(single_contig$features)),
     description = rep(single_contig$description, length(single_contig$features))
@@ -83,6 +90,21 @@ get_features_df <- function(single_contig) {
     do.call(rbind, .) -> tmp_df
   features_df <- cbind(features_df, tmp_df, lapply(tmp_df$location, parse_location) %>% do.call(rbind, .))
   features_df$start <- features_df$start + 1
+
+  region_df <- get_region_df(single_contig)
+
+  features_df <- features_df %>%
+    fuzzyjoin::fuzzy_left_join(
+      region_df %>% dplyr::select(id, start, end, BGC),
+      by = c(
+        "id" = "id",
+        "start" = "start",
+        "end" = "end"
+      ),
+      match_fun = list(`==`, `>=`, `<=`)
+    ) %>%
+    rename(id = id.x, start = start.x, end = end.x) %>%
+    dplyr::select(-id.y, -start.y, -end.y)
   features_df
 }
 
@@ -123,14 +145,18 @@ plot_BGC <- function(BGC_json, region_id = NULL, show_locus_tag = TRUE,
                      show_gene_functions = FALSE) {
   stopifnot(inherits(BGC_json, "antismash"))
 
+  BGC_df <- get_BGCs_from_BGC_json(BGC_json)
   if (is.null(region_id)) {
     message("region_id is NULL, use the first region as default")
-    region_id <- names(BGC_json$records)[1]
+    region_id <- BGC_df$BGC[1]
+  } else {
+    stopifnot(region_id %in% BGC_df$BGC)
   }
-  single_contig <- BGC_json$records[[region_id]]
-  get_region_df(single_contig) -> region_df
+  BGC_df[BGC_df$BGC == region_id, ] -> region_df
+  single_contig <- BGC_json$records[[region_df$id[1]]]
 
   get_cds_df(single_contig) -> cds_df
+  dplyr::filter(cds_df, BGC %in% region_id) -> cds_df
   lib_ps("gggenes", library = FALSE)
 
   p <- ggplot2::ggplot(data = cds_df, aes(xmin = start, xmax = end, y = id))

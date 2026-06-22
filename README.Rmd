@@ -50,23 +50,23 @@ mibig_db2df(mibig_db) -> mibig_df
 ## Antismash
 
 
-```{r}
+```{r eval=FALSE}
 how_to_do_bgc("antismash")
 ```
 
 ```{r}
-read_antismash_json("../temp/AAB-S01R1_127/AAB-S01R1_127.json") -> AAB_S01R1_127
-AAB_S01R1_127
+read_antismash_json("../temp/AAB-S02R5_42_v7.1.0/AAB-S02R5_42.json") -> AAB_S02R5_42
+AAB_S02R5_42
 
-get_BGCs_from_BGC_json(AAB_S01R1_127)
-plot_BGC(AAB_S01R1_127, region_id = "c00519_AAB-S01..")
+get_BGCs_from_BGC_json(AAB_S02R5_42)
+plot_BGC(AAB_S02R5_42, region_id = "AAB-S02R5_k55_4109967_flag0_multi6.7266_len8952.region001")
 ```
 
 
 
 ## Big-scape
 
-```{r}
+```{r eval=FALSE}
 how_to_do_bgc("big-scape")
 ```
 

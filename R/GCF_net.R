@@ -143,7 +143,7 @@ plot_BGC_class <- function(big_scape_res, mode = 1, rm_mibig = FALSE, ...) {
 
   if (mode == 1) {
     NP_class <- dplyr::count(all_bgc, `BiG-SCAPE class`, name = "count") %>% dplyr::arrange(-count)
-    p <- do.call(pcutils::gghuan, update_param(list(tab = NP_class, topN = 15, percentage = TRUE), list(...))) +
+    p <- do.call(pcutils::gghuan, pcutils::update_param(list(tab = NP_class, topN = 15, percentage = TRUE), list(...))) +
       annotate("text", 0, 0, label = paste0(format(nrow(all_bgc), big.mark = ","), " BGCs")) +
       scale_fill_pc("col2")
   } else if (mode == 2) {
@@ -151,7 +151,7 @@ plot_BGC_class <- function(big_scape_res, mode = 1, rm_mibig = FALSE, ...) {
       dplyr::arrange(`BiG-SCAPE class`, -n) -> NP_class2
     p <- do.call(
       pcutils::my_sankey,
-      update_param(
+      pcutils::update_param(
         list(
           test = NP_class2, topN = 15,
           D3_params = list(width = 400, height = 400, numberFormat = "")
@@ -173,8 +173,8 @@ plot_BGC_class <- function(big_scape_res, mode = 1, rm_mibig = FALSE, ...) {
 read_big_slice_dir <- function(big_slice_dir) {
   filepath <- normalizePath(big_slice_dir)
   expected_structure <- c("app", "result", "requirements.txt", "start_server.sh", "result/data.db")
-  if (!check_directory_structure(filepath, expected_structure = expected_structure)) {
-    check_directory_structure(filepath, expected_structure = expected_structure, verbose = TRUE)
+  if (!pcutils::check_directory_structure(filepath, expected_structure = expected_structure)) {
+    pcutils::check_directory_structure(filepath, expected_structure = expected_structure, verbose = TRUE)
     stop("The directory structure is not correct. Please check the directory again.")
   }
   lib_ps("RSQLite", "DBI", library = FALSE)
@@ -260,10 +260,11 @@ get_big_slice_db <- function(big_slice_res, table = "bgc") {
 get_report_df <- function(big_slice_res, report, distance = 0.4) {
   stopifnot(inherits(big_slice_res, "big_slice"))
   lib_ps("RSQLite", "DBI", library = FALSE)
-  if (is.null(big_slice_res$reports)) {
+  reports <- big_slice_res$reports
+  if (is.null(reports)) {
     stop("No report available.")
   }
-  if (!report %in% big_slice_res$reports$name) {
+  if (!report %in% reports$name) {
     stop(paste0("Report '", report, "' not found."))
   }
   report_id <- reports[reports$name == report, "id"]
@@ -278,7 +279,7 @@ get_report_df <- function(big_slice_res, report, distance = 0.4) {
   colnames(bgc)[1] <- "bgc_id"
   gcf$gcf_id <- paste0("GCF_", gcf$gcf_id)
   colnames(gcf)[3] <- "distance"
-  gcfs <- dplyr::left_join(bgc[, 1:6], gcf[, 1:3])
+  gcfs <- dplyr::left_join(bgc[, 1:5], gcf[, 1:3])
 
   gcfs$in_gcf <- ifelse(gcfs$distance < distance, TRUE, FALSE)
   gcfs

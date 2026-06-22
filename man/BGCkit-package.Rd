@@ -4,7 +4,7 @@
 \name{BGCkit-package}
 \alias{BGCkit}
 \alias{BGCkit-package}
-\title{BGCkit: A kit for biosynthetic gene cluster (BGC) analysis}
+\title{BGCkit: A kit for biosynthetic gene cluster (BGC) analysis in omics}
 \description{
 Study the evolutionary relationship between microbial genomes, especially the evolutionary patterns of specific functional genes.
 }
