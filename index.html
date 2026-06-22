@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>A kit for biosynthetic gene cluster (BGC) analysis • BGCkit</title>
+<title>A kit for biosynthetic gene cluster (BGC) analysis in omics • BGCkit</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A kit for biosynthetic gene cluster (BGC) analysis">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A kit for biosynthetic gene cluster (BGC) analysis in omics">
 <meta name="description" content="Study the evolutionary relationship between microbial genomes, especially the evolutionary patterns of specific functional genes.">
 <meta property="og:description" content="Study the evolutionary relationship between microbial genomes, especially the evolutionary patterns of specific functional genes.">
 </head>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">BGCkit</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,6 +67,165 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Asa12138/BGCkit" class="external-link">BGCkit</a></span><span class="op">)</span></span>
 <span><span class="co">## basic example code</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="mibig-database">MiBIG database<a class="anchor" aria-label="anchor" href="#mibig-database"></a>
+</h2>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># get_mibig_db(file = "../temp/mibig_json_4.0.tar.gz")</span></span>
+<span><span class="fu"><a href="reference/load_mibig_db.html">load_mibig_db</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">mibig_db</span></span>
+<span><span class="fu"><a href="reference/mibig_db2df.html">mibig_db2df</a></span><span class="op">(</span><span class="va">mibig_db</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">mibig_df</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="antismash">Antismash<a class="anchor" aria-label="anchor" href="#antismash"></a>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/how_to_do_bgc.html">how_to_do_bgc</a></span><span class="op">(</span><span class="st">"antismash"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/read_antismash_json.html">read_antismash_json</a></span><span class="op">(</span><span class="st">"../temp/AAB-S02R5_42_v7.1.0/AAB-S02R5_42.json"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">AAB_S02R5_42</span></span>
+<span><span class="va">AAB_S02R5_42</span></span>
+<span><span class="co">#&gt; Antismash Output Summary:</span></span>
+<span><span class="co">#&gt; Genome name: AAB-S02R5_42 </span></span>
+<span><span class="co">#&gt; Number of BGCs: 8 </span></span>
+<span><span class="co">#&gt; Version: 7.1.0</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/get_BGCs_from_BGC_json.html">get_BGCs_from_BGC_json</a></span><span class="op">(</span><span class="va">AAB_S02R5_42</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    genome_name                                              id</span></span>
+<span><span class="co">#&gt; 1 AAB-S02R5_42 AAB-S02R5_k55_4109967_flag0_multi6.7266_len8952</span></span>
+<span><span class="co">#&gt; 2 AAB-S02R5_42 AAB-S02R5_k55_5485772_flag0_multi4.5880_len2123</span></span>
+<span><span class="co">#&gt; 3 AAB-S02R5_42 AAB-S02R5_k55_4875950_flag0_multi6.0838_len3658</span></span>
+<span><span class="co">#&gt; 4 AAB-S02R5_42 AAB-S02R5_k55_2881803_flag0_multi6.5031_len6907</span></span>
+<span><span class="co">#&gt; 5 AAB-S02R5_42 AAB-S02R5_k55_6300465_flag0_multi6.8636_len7457</span></span>
+<span><span class="co">#&gt; 6 AAB-S02R5_42  AAB-S02R5_k55_216270_flag1_multi5.9327_len2521</span></span>
+<span><span class="co">#&gt; 7 AAB-S02R5_42 AAB-S02R5_k55_4015141_flag0_multi5.4879_len6231</span></span>
+<span><span class="co">#&gt; 8 AAB-S02R5_42 AAB-S02R5_k55_4042629_flag0_multi4.9108_len2130</span></span>
+<span><span class="co">#&gt;                                               contig region_number</span></span>
+<span><span class="co">#&gt; 1 AAB-S02R5_k55_4109967_flag=0_multi=6.7266_len=8952             1</span></span>
+<span><span class="co">#&gt; 2 AAB-S02R5_k55_5485772_flag=0_multi=4.5880_len=2123             1</span></span>
+<span><span class="co">#&gt; 3 AAB-S02R5_k55_4875950_flag=0_multi=6.0838_len=3658             1</span></span>
+<span><span class="co">#&gt; 4 AAB-S02R5_k55_2881803_flag=0_multi=6.5031_len=6907             1</span></span>
+<span><span class="co">#&gt; 5 AAB-S02R5_k55_6300465_flag=0_multi=6.8636_len=7457             1</span></span>
+<span><span class="co">#&gt; 6  AAB-S02R5_k55_216270_flag=1_multi=5.9327_len=2521             1</span></span>
+<span><span class="co">#&gt; 7 AAB-S02R5_k55_4015141_flag=0_multi=5.4879_len=6231             1</span></span>
+<span><span class="co">#&gt; 8 AAB-S02R5_k55_4042629_flag=0_multi=4.9108_len=2130             1</span></span>
+<span><span class="co">#&gt;   on_contig_edge start  end direct length              product</span></span>
+<span><span class="co">#&gt; 1           True     1 8952      1   8952 proteusin; RiPP-like</span></span>
+<span><span class="co">#&gt; 2           True     1 2123      1   2123              terpene</span></span>
+<span><span class="co">#&gt; 3           True     1 3658      1   3658            RiPP-like</span></span>
+<span><span class="co">#&gt; 4           True     1 6907      1   6907       redox-cofactor</span></span>
+<span><span class="co">#&gt; 5           True     1 5328      1   5328            RiPP-like</span></span>
+<span><span class="co">#&gt; 6           True     1 2521      1   2521              terpene</span></span>
+<span><span class="co">#&gt; 7           True   596 6231      1   5636            RiPP-like</span></span>
+<span><span class="co">#&gt; 8           True     1 2130      1   2130              terpene</span></span>
+<span><span class="co">#&gt;                                                         BGC</span></span>
+<span><span class="co">#&gt; 1 AAB-S02R5_k55_4109967_flag0_multi6.7266_len8952.region001</span></span>
+<span><span class="co">#&gt; 2 AAB-S02R5_k55_5485772_flag0_multi4.5880_len2123.region001</span></span>
+<span><span class="co">#&gt; 3 AAB-S02R5_k55_4875950_flag0_multi6.0838_len3658.region001</span></span>
+<span><span class="co">#&gt; 4 AAB-S02R5_k55_2881803_flag0_multi6.5031_len6907.region001</span></span>
+<span><span class="co">#&gt; 5 AAB-S02R5_k55_6300465_flag0_multi6.8636_len7457.region001</span></span>
+<span><span class="co">#&gt; 6  AAB-S02R5_k55_216270_flag1_multi5.9327_len2521.region001</span></span>
+<span><span class="co">#&gt; 7 AAB-S02R5_k55_4015141_flag0_multi5.4879_len6231.region001</span></span>
+<span><span class="co">#&gt; 8 AAB-S02R5_k55_4042629_flag0_multi4.9108_len2130.region001</span></span>
+<span><span class="fu"><a href="reference/plot_BGC.html">plot_BGC</a></span><span class="op">(</span><span class="va">AAB_S02R5_42</span>, region_id <span class="op">=</span> <span class="st">"AAB-S02R5_k55_4109967_flag0_multi6.7266_len8952.region001"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png" alt="" width="100%"></p>
+</div>
+<div class="section level2">
+<h2 id="big-scape">Big-scape<a class="anchor" aria-label="anchor" href="#big-scape"></a>
+</h2>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/how_to_do_bgc.html">how_to_do_bgc</a></span><span class="op">(</span><span class="st">"big-scape"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/read_big_scape_dir.html">read_big_scape_dir</a></span><span class="op">(</span><span class="st">"../temp/network_files/2024-05-27_14-21-19_hybrids_glocal/"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">big_scape_res</span></span>
+<span><span class="co">#&gt; Found 1 networks with different cutoff:</span></span>
+<span><span class="co">#&gt; 0.30</span></span>
+<span><span class="co">#&gt; Use the cutoff: 0.30</span></span>
+<span><span class="co">#&gt; ================================Reading networks================================</span></span>
+<span><span class="co">#&gt; ==================================Reading GCFs==================================</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(GCF)`</span></span>
+<span><span class="co">#&gt; Some BGCs such as 'AAB-S10R3_263_c00118_AAB-S10...region001' were assigned into</span></span>
+<span><span class="co">#&gt; different GCFs</span></span>
+<span><span class="co">#&gt; Reassign them into the GCF with the largest number of BGCs</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(BGC)`</span></span>
+<span><span class="co">#&gt; Some BGC names are in the format of BGCXXXXXXX (from MIBiG database)</span></span>
+<span><span class="va">big_scape_res</span></span>
+<span><span class="co">#&gt; BiG-scape Output Summary:</span></span>
+<span><span class="co">#&gt; Number of BGCs: 16630 </span></span>
+<span><span class="co">#&gt; Cutoff: 0.30 </span></span>
+<span><span class="co">#&gt; BiG-scape Classes: NRPS, Others, PKS-NRP_Hybrids, PKSI, PKSother, RiPPs, Saccharides, Terpene </span></span>
+<span><span class="co">#&gt; With MIBiG:  TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plot_BGC_class.html">plot_BGC_class</a></span><span class="op">(</span><span class="va">big_scape_res</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-6-1.png" alt="" width="100%"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="reference/trans_net.html">trans_net</a></span><span class="op">(</span><span class="va">big_scape_res</span>, class <span class="op">=</span> <span class="st">"RiPPs"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">NRPS_net</span></span>
+<span><span class="co">#&gt; No 'from' and 'to' in the colnames(edgelist), use the first two columns as the 'from' and 'to'.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">NRPS_net</span>,</span>
+<span>  group_legend_title <span class="op">=</span> <span class="st">"Product Prediction"</span>, main <span class="op">=</span> <span class="st">"RiPPs GCF network"</span>,</span>
+<span>  size_legend <span class="op">=</span> <span class="cn">T</span>, size_legend_title <span class="op">=</span> <span class="st">"Degree"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-6-2.png" alt="" width="100%"></p>
+</div>
+<div class="section level2">
+<h2 id="big-slice">Big-slice<a class="anchor" aria-label="anchor" href="#big-slice"></a>
+</h2>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># read_big_slice_dir("~/Documents/R/Greenland2/data/big_slice_out/")-&gt;big_slice_res2</span></span>
+<span><span class="fu"><a href="reference/read_big_slice_dir.html">read_big_slice_dir</a></span><span class="op">(</span><span class="st">"../temp/big_slice_test_out/"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">big_slice_res</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(bgc_id)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(gcf_id)`</span></span>
+<span></span>
+<span><span class="va">big_slice_res</span></span>
+<span><span class="co">#&gt; BiG-slice Output Summary:</span></span>
+<span><span class="co">#&gt; Dir: /Users/asa/Documents/R/BGC_analysis/temp/big_slice_test_out </span></span>
+<span><span class="co">#&gt; BGCs number: 4 </span></span>
+<span><span class="co">#&gt; With 1 reports:</span></span>
+<span><span class="co">#&gt;  Greenland_MAGs</span></span>
+<span></span>
+<span><span class="co"># open_big_slice_website(big_slice_res,port=123)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/get_big_slice_db.html">get_big_slice_db</a></span><span class="op">(</span><span class="va">big_slice_res</span>, <span class="st">"bgc"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   id dataset_id                                     name type on_contig_edge</span></span>
+<span><span class="co">#&gt; 1  1          1 AAB-S01R1_115/c00076_AAB-S01...region001  as5              1</span></span>
+<span><span class="co">#&gt; 2  2          1 AAB-S01R1_115/c00291_AAB-S01...region001  as5              1</span></span>
+<span><span class="co">#&gt; 3  3          1 AAB-S01R1_115/c00189_AAB-S01...region001  as5              1</span></span>
+<span><span class="co">#&gt; 4  4          1 AAB-S01R1_115/c00196_AAB-S01...region001  as5              1</span></span>
+<span><span class="co">#&gt;   length_nt   orig_folder                  orig_filename</span></span>
+<span><span class="co">#&gt; 1      1528 AAB-S01R1_115 c00076_AAB-S01...region001.gbk</span></span>
+<span><span class="co">#&gt; 2      2578 AAB-S01R1_115 c00291_AAB-S01...region001.gbk</span></span>
+<span><span class="co">#&gt; 3      1029 AAB-S01R1_115 c00189_AAB-S01...region001.gbk</span></span>
+<span><span class="co">#&gt; 4      5330 AAB-S01R1_115 c00196_AAB-S01...region001.gbk</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/get_report_df.html">get_report_df</a></span><span class="op">(</span><span class="va">big_slice_res</span>, <span class="st">"Greenland_MAGs"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(bgc_id)`</span></span>
+<span><span class="co">#&gt;    bgc_id                                                name type</span></span>
+<span><span class="co">#&gt; 1       1 test_query/AAB-S01R1_127_c00915_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 2       2 test_query/AAB-S01R1_127_c00921_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 3       3 test_query/AAB-S01R1_127_c00197_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 4       4 test_query/AAB-S01R1_127_c00519_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 5       5 test_query/AAB-S01R1_127_c00586_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 6       6 test_query/AAB-S01R1_127_c00102_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 7       7 test_query/AAB-S01R1_127_c00437_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 8       8 test_query/AAB-S01R1_127_c00276_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 9       9 test_query/AAB-S01R1_127_c00355_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt; 10     10 test_query/AAB-S01R1_127_c00212_AAB-S01...region001  as5</span></span>
+<span><span class="co">#&gt;    on_contig_edge length_nt gcf_id distance in_gcf</span></span>
+<span><span class="co">#&gt; 1               1      3790  GCF_1 1.375247  FALSE</span></span>
+<span><span class="co">#&gt; 2               1      5018  GCF_1 1.375247  FALSE</span></span>
+<span><span class="co">#&gt; 3               1      8284  GCF_3 1.198277  FALSE</span></span>
+<span><span class="co">#&gt; 4               1      1584  GCF_1 1.375247  FALSE</span></span>
+<span><span class="co">#&gt; 5               1      1701  GCF_1 1.375247  FALSE</span></span>
+<span><span class="co">#&gt; 6               1     14587  GCF_1 1.375247  FALSE</span></span>
+<span><span class="co">#&gt; 7               1      3371  GCF_1 1.375247  FALSE</span></span>
+<span><span class="co">#&gt; 8               1      4403  GCF_3 1.326082  FALSE</span></span>
+<span><span class="co">#&gt; 9               1      3075  GCF_1 1.375247  FALSE</span></span>
+<span><span class="co">#&gt; 10              1      5435  GCF_1 1.375247  FALSE</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="bgc_atlas">BGC_atlas<a class="anchor" aria-label="anchor" href="#bgc_atlas"></a>
+</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>cd <span class="sc">/</span>data<span class="sc">/</span>home<span class="sc">/</span>jianglab<span class="sc">/</span>share<span class="sc">/</span>pc_DB<span class="sc">/</span>BGC_atlas</span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
@@ -94,7 +253,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Chen Peng <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9449-7606" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Chen Peng <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9449-7606" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
 </div>
 
@@ -109,7 +268,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
